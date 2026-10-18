@@ -17,3 +17,28 @@ export class InvalidAttackError extends GlobalError {
         super(message);
     }
 }
+
+// Pokemon.ts
+export class MaxAttacksReachedError extends GlobalError {
+    constructor(pokemonName: string, maxAttacks: number) {
+        super(`${pokemonName} cannot learn more than ${maxAttacks} attacks`);
+    }
+}
+
+export class AttackAlreadyKnownError extends GlobalError {
+    constructor(pokemonName: string, attackName: string) {
+        super(`${pokemonName} already knows the attack ${attackName}`);
+    }
+}
+
+export class NoUsableAttackError extends GlobalError {
+    constructor(pokemonName: string) {
+        super(`${pokemonName} has no usable attack left`);
+    }
+}
+
+export class InvalidPokemonError extends GlobalError {
+    constructor(message: string) {
+        super(message);
+    }
+}
