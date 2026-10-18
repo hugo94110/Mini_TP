@@ -42,3 +42,16 @@ export class InvalidPokemonError extends GlobalError {
         super(message);
     }
 }
+
+// Trainer.ts
+export class PokemonAlreadyOwnedError extends GlobalError {
+    constructor(trainerName: string, pokemonName: string) {
+        super(`${trainerName} already owns ${pokemonName}`);
+    }
+}
+
+export class InvalidTrainerError extends GlobalError {
+    constructor(message: string) {
+        super(message);
+    }
+}
