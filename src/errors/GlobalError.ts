@@ -11,3 +11,9 @@ export class UsageLimitReachedError extends GlobalError {
         super(`${attackName} has reached its usage limit`);
     }
 }
+
+export class InvalidAttackError extends GlobalError {
+    constructor(message: string) {
+        super(message);
+    }
+}

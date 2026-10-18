@@ -1,4 +1,4 @@
-import { UsageLimitReachedError } from "../errors/GlobalError.js";
+import { UsageLimitReachedError, InvalidAttackError } from "../errors/GlobalError.js";
 
 export class Attack {
     public readonly name: string;
@@ -8,15 +8,15 @@ export class Attack {
 
     constructor(name: string, damage: number, usageLimit: number) {
         if (!name || name.trim() === "") {
-            throw new Error("Name cannot be empty");
+            throw new InvalidAttackError("Name cannot be empty");
         }
 
         if (damage < 0) {
-            throw new Error("Damage cannot be negative");
+            throw new InvalidAttackError("Damage cannot be negative");
         }
 
         if (usageLimit <= 0) {
-            throw new Error("Usage limit cannot be zero or negative");
+            throw new InvalidAttackError("Usage limit cannot be zero or negative");
         }
 
         this.name = name;
