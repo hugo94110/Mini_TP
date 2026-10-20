@@ -50,6 +50,12 @@ export class PokemonAlreadyOwnedError extends GlobalError {
     }
 }
 
+export class NoUsablePokemonError extends GlobalError {
+    constructor(trainerName: string) {
+        super(`${trainerName} has no usable Pokemon left`);
+    }
+}
+
 export class InvalidTrainerError extends GlobalError {
     constructor(message: string) {
         super(message);

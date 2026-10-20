@@ -1,5 +1,5 @@
 import type { Pokemon } from "./Pokemon.js";
-import { InvalidTrainerError, PokemonAlreadyOwnedError } from "../errors/GlobalError.js";
+import { InvalidTrainerError, PokemonAlreadyOwnedError, NoUsableAttackError, NoUsablePokemonError } from "../errors/GlobalError.js";
 
 export class Trainer {
     public readonly name: string;
@@ -77,6 +77,17 @@ export class Trainer {
 
     public hasAlivePokemon(): boolean {
         return this.pokemons.some(p => p.isAlive());
+    }
+    
+    public getRandomPokemon(): Pokemon {
+        const index = Math.floor(Math.random() * this.pokemons.length);
+        const pokemon = this.pokemons[index];
+
+        if (pokemon === undefined) {
+            throw new NoUsablePokemonError(this.name);
+        }
+
+        return pokemon;
     }
 
     public showInfo(): string {
