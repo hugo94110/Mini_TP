@@ -2,13 +2,14 @@ import type { Attack } from "./Attack.js";
 import { MaxAttacksReachedError, AttackAlreadyKnownError, NoUsableAttackError, InvalidPokemonError } from "../errors/GlobalError.js";
 
 export class Pokemon {
+    public readonly id: number | null;
     public readonly name: string;
     private lifePoints: number;
     public readonly maxLifePoints: number;
     private attacks: Attack[];
     static readonly MAX_ATTACKS = 4;
 
-    constructor(name: string, maxLifePoints: number) {
+    constructor(name: string, maxLifePoints: number, lifePoints: number = maxLifePoints, id: number | null = null) {
         if (!name || name.trim() === "") {
             throw new InvalidPokemonError("Name cannot be empty");
         }
@@ -17,8 +18,13 @@ export class Pokemon {
             throw new InvalidPokemonError("Life points must be greater than 0");
         }
 
+        if (lifePoints < 0 || lifePoints > maxLifePoints) {
+            throw new InvalidPokemonError(`Life points must be between 0 and ${maxLifePoints}`);
+        }
+
+        this.id = id;
         this.name = name;
-        this.lifePoints = maxLifePoints;
+        this.lifePoints = lifePoints;
         this.maxLifePoints = maxLifePoints;
         this.attacks = [];
     }

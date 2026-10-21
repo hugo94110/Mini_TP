@@ -1,12 +1,13 @@
 import { UsageLimitReachedError, InvalidAttackError } from "../errors/GlobalError.js";
 
 export class Attack {
+    public readonly id: number | null;
     public readonly name: string;
     public readonly damage: number;
     public readonly usageLimit: number;
     private usageCount: number;
 
-    constructor(name: string, damage: number, usageLimit: number) {
+    constructor(name: string, damage: number, usageLimit: number, usageCount: number = 0, id: number | null = null) {
         if (!name || name.trim() === "") {
             throw new InvalidAttackError("Name cannot be empty");
         }
@@ -19,10 +20,20 @@ export class Attack {
             throw new InvalidAttackError("Usage limit cannot be zero or negative");
         }
 
+        if (usageCount < 0 || usageCount > usageLimit) {
+            throw new InvalidAttackError(`Usage count must be between 0 and ${usageLimit}`);
+        }
+
+        this.id = id;
         this.name = name;
         this.damage = damage;
         this.usageLimit = usageLimit;
-        this.usageCount = 0;
+        this.usageCount = usageCount;
+    }
+
+    // Getters
+    public getUsageCount(): number {
+        return this.usageCount;
     }
 
     ////////////////////

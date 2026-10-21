@@ -2,13 +2,14 @@ import type { Pokemon } from "./Pokemon.js";
 import { InvalidTrainerError, PokemonAlreadyOwnedError, NoUsablePokemonError } from "../errors/GlobalError.js";
 
 export class Trainer {
+    public readonly id: number | null;
     public readonly name: string;
     private level: number;
     private experience: number;
     private pokemons: Pokemon[];
     static readonly EXPERIENCE_PER_LEVEL = 10;
 
-    constructor(name: string, level: number=1, experience: number=0) {
+    constructor(name: string, level: number = 1, experience: number = 0, id: number | null = null) {
         // errors
         if (!name || name.trim() === "") {
             throw new InvalidTrainerError("Name cannot be empty");
@@ -22,6 +23,7 @@ export class Trainer {
             throw new InvalidTrainerError(`Experience must be between 0 and ${Trainer.EXPERIENCE_PER_LEVEL - 1}`);
         }
 
+        this.id = id;
         this.name = name;
         this.level = level;
         this.experience = experience;
