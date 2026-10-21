@@ -1,5 +1,5 @@
 import type { Pokemon } from "./Pokemon.js";
-import { InvalidTrainerError, PokemonAlreadyOwnedError, NoUsableAttackError, NoUsablePokemonError } from "../errors/GlobalError.js";
+import { InvalidTrainerError, PokemonAlreadyOwnedError, NoUsablePokemonError } from "../errors/GlobalError.js";
 
 export class Trainer {
     public readonly name: string;
@@ -88,6 +88,23 @@ export class Trainer {
         }
 
         return pokemon;
+    }
+
+    public getBestPokemon(): Pokemon {
+        const alivePokemons = this.getAlivePokemons();
+        let best = alivePokemons[0];
+
+        if (best === undefined) {
+            throw new NoUsablePokemonError(this.name);
+        }
+
+        ////////
+        for (const pokemon of alivePokemons) {
+            if (pokemon.getLifePoints() > best.getLifePoints()) {
+                best = pokemon;
+            }
+        }
+        return best;
     }
 
     public showInfo(): string {

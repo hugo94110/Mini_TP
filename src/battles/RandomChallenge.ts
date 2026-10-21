@@ -15,7 +15,7 @@ export class RandomChallenge extends Battle {
         const pokemonWinner = this.duel(pokemon1, pokemon2);
         const winner = this.getOwner(pokemonWinner);
         winner.gainExperience(5); // 5xp
-        this.log.push(`${winner.name} wins the battle`);
+        this.log.push(`${winner.name} wins the battle (Random Challenge)`);
 
         return this.buildBattleResult(winner);
     }
