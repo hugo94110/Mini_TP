@@ -1,5 +1,6 @@
 import { Battle, type BattleResult } from "./Battle.js";
 import { RandomChallenge } from "./RandomChallenge.js";
+import type { Trainer } from "../models/Trainer.js";
 
 export class Arena1 extends Battle {
     public override start(): BattleResult {
@@ -10,18 +11,27 @@ export class Arena1 extends Battle {
         }
 
         //////////
+        this.log.push(`${this.trainer1.showInfo()} - ${this.trainer2.showInfo()}`);
+
+        let winner: Trainer | null;
         if (this.trainer1.getLevel() > this.trainer2.getLevel()) {
-            return this.buildBattleResult(this.trainer1);
+            winner = this.trainer1;
+        } else if (this.trainer2.getLevel() > this.trainer1.getLevel()) {
+            winner = this.trainer2;
+        } else if (this.trainer1.getExperience() > this.trainer2.getExperience()) {
+            winner = this.trainer1;
+        } else if (this.trainer2.getExperience() > this.trainer1.getExperience()) {
+            winner = this.trainer2;
+        } else {
+            winner = null;
         }
-        if (this.trainer2.getLevel() > this.trainer1.getLevel()) {
-            return this.buildBattleResult(this.trainer2);
+
+        if (winner !== null) {
+            this.log.push(`${winner.name} wins the arena`);
+        } else {
+            this.log.push("Draw");
         }
-        if (this.trainer1.getExperience() > this.trainer2.getExperience()) {
-            return this.buildBattleResult(this.trainer1);
-        }
-        if (this.trainer2.getExperience() > this.trainer1.getExperience()) {
-            return this.buildBattleResult(this.trainer2);
-        }
-        return this.buildBattleResult(null);
+
+        return this.buildBattleResult(winner);
     }
 }
