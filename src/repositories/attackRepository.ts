@@ -22,19 +22,19 @@ export class AttackRepository {
         const row = result.rows[0];
 
         if (row === undefined) {
-            throw new NotFoundError("Attack", id)
+            throw new NotFoundError("Attack", id);
         }
 
         return this.toAttack(row);
     }
 
-    // save a new attack and return its id
+    // create a new attack and return its id
     public async create(attack: Attack): Promise<Attack> {
         const result = await pool.query<AttackRow>("insert into attacks (name, damage, usage_limit) values ($1, $2, $3) returning *", [attack.name, attack.damage, attack.usageLimit]);
         const row = result.rows[0];
 
         if (row === undefined) {
-            throw new Error("Attack creation failed")
+            throw new Error("Attack creation failed");
         }
 
         return this.toAttack(row);
