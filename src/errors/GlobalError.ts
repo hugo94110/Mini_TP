@@ -68,3 +68,9 @@ export class NotFoundError extends GlobalError {
         super(`${entity} ${id} not found`);
     }
 }
+
+export class InvalidRequestError extends GlobalError {
+    constructor(message: string) {
+        super(message);
+    }
+}
