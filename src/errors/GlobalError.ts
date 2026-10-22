@@ -61,3 +61,10 @@ export class InvalidTrainerError extends GlobalError {
         super(message);
     }
 }
+
+// API
+export class NotFoundError extends GlobalError {
+    constructor(entity: string, id: number) {
+        super(`${entity} ${id} not found`);
+    }
+}
