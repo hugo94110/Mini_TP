@@ -8,7 +8,7 @@ type AttackRow = {
     name: string;
     damage: number;
     usage_limit: number;
-}
+};
 
 export class AttackRepository {
     public async findAll(): Promise<Attack[]> {

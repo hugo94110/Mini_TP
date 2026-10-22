@@ -10,7 +10,7 @@ type PokemonRow = {
     life_points: number;
     max_life_points: number;
     trainer_id: number;
-}
+};
 
 // attack known by a pokemon
 type PokemonAttackRow = {
@@ -19,7 +19,7 @@ type PokemonAttackRow = {
     damage: number;
     usage_limit: number;
     usage_count: number;
-}
+};
 
 export class PokemonRepository {
     public async findAll(): Promise<Pokemon[]> {
@@ -36,6 +36,12 @@ export class PokemonRepository {
         }
         
         return this.toPokemon(row);
+    }
+
+    // Get all pokemons of one trainer
+    public async findByTrainerId(trainerId: number): Promise<Pokemon[]> {
+        const result = await pool.query<PokemonRow>("select * from pokemons where trainer_id = $1 order by id", [trainerId]);
+        return Promise.all(result.rows.map(row => this.toPokemon(row)));
     }
 
     // create a new pokemon for a trainer and return it
