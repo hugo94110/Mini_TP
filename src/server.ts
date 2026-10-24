@@ -1,6 +1,7 @@
 import express, { type ErrorRequestHandler } from "express";
 import { GlobalError, NotFoundError } from "./errors/GlobalError.js";
 import { attackRouter } from "./routes/attackRoutes.js";
+import { pokemonRouter } from "./routes/pokemonRoutes.js";
 
 const app = express();
 const port = Number(process.env.PORT);
@@ -9,6 +10,7 @@ app.use(express.json());
 
 // routes
 app.use("/attacks", attackRouter);
+app.use("/pokemons", pokemonRouter);
 
 // unknown route 404
 app.use((req, res) => {
