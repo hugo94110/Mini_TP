@@ -6,7 +6,7 @@ REST API in Express, TypeScript and PostgreSQL
 
 - Node.js 22+
 - PostgreSQL
-- pgAdmin 4 (optionnal)
+- pgAdmin 4 (optional)
 
 ## Installation
 
@@ -42,3 +42,7 @@ npm run dev
 | POST | `/battles/:mode` | `{ "trainer1Id", "trainer2Id" }` |
 
 Battle modes : `random`, `arena1`, `deterministic`, `arena2`
+
+## Notes
+
+A pokemon needs at least one attack to fight.
