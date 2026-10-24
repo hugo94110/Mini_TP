@@ -11,7 +11,7 @@ pokemonRouter.get("/", async (req, res) => {
     res.json(pokemons);
 });
 
-// list one pokemon by using this id
+// list one pokemon by using his id
 pokemonRouter.get("/:id", async (req, res) => {
     const pokemon = await pokemonRepository.findById(parseId(req.params.id));
     res.json(pokemon);
@@ -37,6 +37,6 @@ pokemonRouter.post("/:id/learn", async (req, res) => {
 
     // if game rule check ok save into db
     await pokemonRepository.addAttack(pokemonId, attackId);
-    
+
     res.status(201).json(await pokemonRepository.findById(pokemonId));
 });

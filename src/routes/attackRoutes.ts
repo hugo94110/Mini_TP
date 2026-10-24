@@ -11,7 +11,7 @@ attackRouter.get("/", async (req, res) => {
     res.json(attacks);
 });
 
-// list one attack by using this id
+// list one attack by using his id
 attackRouter.get("/:id", async (req, res) => {
     const attack = await attackRepository.findById(parseId(req.params.id));
     res.json(attack);
