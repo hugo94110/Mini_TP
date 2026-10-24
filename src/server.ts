@@ -3,6 +3,7 @@ import { GlobalError, NotFoundError } from "./errors/GlobalError.js";
 import { attackRouter } from "./routes/attackRoutes.js";
 import { pokemonRouter } from "./routes/pokemonRoutes.js";
 import { trainerRouter } from "./routes/trainerRoutes.js";
+import { battleRouter } from "./routes/battleRoutes.js";
 
 const app = express();
 const port = Number(process.env.PORT);
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use("/attacks", attackRouter);
 app.use("/pokemons", pokemonRouter);
 app.use("/trainers", trainerRouter);
+app.use("/battles", battleRouter);
 
 // unknown route 404
 app.use((req, res) => {
